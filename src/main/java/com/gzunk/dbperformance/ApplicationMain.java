@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -66,10 +67,12 @@ public class ApplicationMain {
         jdbcOperations().update("DELETE FROM table2");
     }
 
+    @SuppressWarnings("unused")
     private void selectData() {
         jdbcOperations().query("SELECT column_1 FROM table1", (ResultSet rs, int i) -> rs.getString(1)).forEach(LOG::info);
     }
 
+    @SuppressWarnings("unused")
     private void copyData() {
 
         JdbcOperations jdbcOperations = jdbcOperations();
@@ -85,7 +88,9 @@ public class ApplicationMain {
         });
 
         LOG.info("Writing Data");
-        jdbcOperations.batchUpdate("insert into table2 values (?,?,?,?,?,?,?)", batchArgs);
+
+        String columnPlaceholders = String.join(",", Collections.nCopies(batchArgs.get(0).length, "?"));
+        jdbcOperations.batchUpdate("insert into table2 values (" + columnPlaceholders + ")", batchArgs);
     }
 
     private class MyRowCallbackHandler implements RowCallbackHandler {
@@ -94,7 +99,7 @@ public class ApplicationMain {
         private List<Object[]> batchArgs;
         private JdbcOperations jdbcOperations;
 
-        public MyRowCallbackHandler(JdbcOperations jdbcOperations) {
+        private MyRowCallbackHandler(JdbcOperations jdbcOperations) {
             this.jdbcOperations = jdbcOperations;
             batchArgs = new ArrayList<>();
         }
@@ -104,6 +109,8 @@ public class ApplicationMain {
 
             int columnCount = rs.getMetaData().getColumnCount();
             Object[] results = new Object[columnCount];
+            String columnPlaceholders = String.join(",", Collections.nCopies(columnCount, "?"));
+
             for (int j = 0; j < columnCount; j++) {
                 results[j] = rs.getObject(j+1);
             }
@@ -111,7 +118,7 @@ public class ApplicationMain {
 
             if (batchArgs.size() >= batchSize || rs.isLast()) {
                 LOG.info("Writing Data");
-                jdbcOperations.batchUpdate("insert into table2 values (?,?,?,?,?,?,?)", batchArgs);
+                jdbcOperations.batchUpdate("insert into table2 values (" + columnPlaceholders + ")", batchArgs);
                 batchArgs = new ArrayList<>();
             }
         }
@@ -119,14 +126,12 @@ public class ApplicationMain {
 
     private void copyDataBatched() {
 
-        final int batchSize = 100;
-        JdbcOperations jdbcOperations = jdbcOperations();
-
         LOG.info("Transferring Data");
-        jdbcOperations.query("select * from table1", new MyRowCallbackHandler(jdbcOperations()));
+        jdbcOperations().query("select * from table1", new MyRowCallbackHandler(jdbcOperations()));
 
     }
 
+    @SuppressWarnings("unused")
     private void insertRandomData(final int count) {
 
         Random rng = new Random();
