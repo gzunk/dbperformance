@@ -28,6 +28,7 @@ dependencies {
 
     compile group: 'org.springframework', name: 'spring-jdbc', version: '4.3.11.RELEASE'
     compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
+    compile group: 'com.h2database', name: 'h2', version: '1.4.196'
 
     compile("org.slf4j:jcl-over-slf4j:1.7.25")
     compile("org.slf4j:log4j-over-slf4j:1.7.25")
