@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="movies@postgres.dunblane" uuid="cf8d3b4a-26c6-4f02-8398-a41e2906f30d">
+    <data-source source="LOCAL" name="dbperformance@postgres.dunblane" uuid="cdb9c02d-5599-4b38-a41c-7e07e30e8242">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://postgres.dunblane:5432/movies</jdbc-url>
+      <jdbc-url>jdbc:postgresql://postgres.dunblane:5432/dbperformance</jdbc-url>
       <driver-properties>
         <property name="ApplicationName" value="DataGrip" />
       </driver-properties>

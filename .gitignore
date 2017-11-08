@@ -1,9 +1,11 @@
 # Created by .ignore support plugin (hsz.mobi)
-.gitignore
 .gradle/
 .idea/dataSources.local.xml
 .idea/inspectionProfiles/
 .idea/workspace.xml
 out/
-src/main/resources/
-src/test/
+.idea/dataSources/cf8d3b4a-26c6-4f02-8398-a41e2906f30d/_metadata_/metadata.values.at
+.idea/dataSources/cf8d3b4a-26c6-4f02-8398-a41e2906f30d/_src_/
+.idea/dataSources/cf8d3b4a-26c6-4f02-8398-a41e2906f30d/_staging_/
+.idea/dataSources/cf8d3b4a-26c6-4f02-8398-a41e2906f30d/storage.xml
+.idea/mongoSettings.xml
